@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+This template can be reproduced from scratch by following these steps:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npx create-next-app@latest nextjs-shadcn-starter
+
+√ Would you like to use TypeScript? ... No / Yes
+√ Would you like to use ESLint? ... No / Yes
+√ Would you like to use Tailwind CSS? ... No / Yes
+√ Would you like to use `src/` directory? ... No / Yes
+√ Would you like to use App Router? (recommended) ... No / Yes
+√ Would you like to customize the default import alias (@/*)? ... No / Yes
+
+npx shadcn-ui@latest init
+
+√ Would you like to use TypeScript (recommended)? no / yes
+√ Which style would you like to use? › Default
+√ Which color would you like to use as base color? › Neutral
+√ Where is your global CSS file? › › src/app/globals.css
+√ Do you want to use CSS variables for colors? › no / yes
+√ Are you using a custom tailwind prefix eg. tw-? (Leave blank if not) ...
+√ Where is your tailwind.config.js located? › tailwind.config.ts
+√ Configure the import alias for components: › @/components
+√ Configure the import alias for utils: › @/lib/utils
+√ Are you using React Server Components? › no / yes
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Switch to `pnpm`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+rm -rf node_modules package-lock.json
+pnpm i
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```
 
-## Learn More
+Add `prettier`:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm install --save-dev prettier prettier-plugin-tailwindcss
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`.prettierrc.json`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```json
+{
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": true, // this makes sure all jsx classnames use single quotes to be consistent with the `cn()` function from shadcn-ui
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
 
-## Deploy on Vercel
+Integrate `prettier` with `eslint`:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `eslint-config-prettier` are pre-made configs that turn off rules that conflict or are unnecessary with Prettier
+- `eslint-plugin-prettier` show Prettier results as part of eslint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+pnpm install --save-dev eslint-config-prettier eslint-plugin-prettier
+```
+
+`.eslintrc.json`:
+
+```json
+{
+  "extends": ["next/core-web-vitals", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"]
+  }
+}
+```

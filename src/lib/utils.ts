@@ -1,7 +1,7 @@
 import { type ClassValue, clsx } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 import { Metadata } from 'next'
-import { siteMetadata } from './metadata'
+import siteMetadata from './metadata'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
