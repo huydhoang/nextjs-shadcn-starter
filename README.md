@@ -25,6 +25,8 @@ npx shadcn-ui@latest init
 
 ```
 
+`shadcn-ui` will install some deps and create `/lib/utils.ts` and `/components` folder.
+
 Switch to `pnpm`:
 
 ```bash
@@ -70,3 +72,23 @@ pnpm install --save-dev eslint-config-prettier eslint-plugin-prettier
   }
 }
 ```
+
+After this, `eslint` will display any styling errors from `prettier `for us to resolve before any commit.
+
+Edit `/lib/metadata.ts` to your needs:
+
+```ts
+const siteMetadata = {
+  title: 'MyApp - the marketplace for local communities',
+  description:
+    'MyApp is a marketplace for high-quality local goods and services.',
+  creator: '@huydhoang',
+  url: 'https://example.com',
+}
+
+export default siteMetadata
+```
+
+This metadata are imported in `/lib/utils.ts` and used in `src/app/layout.tsx`.
+
+`MaxWidthWrapper.tsx` is a simple wrapper for the main content to take up full width on screen and can be reused in other components. It is imported in `src/app/page.tsx` by default.
